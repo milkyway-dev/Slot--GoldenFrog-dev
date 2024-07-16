@@ -10,11 +10,14 @@ using System.Linq;
 using Newtonsoft.Json;
 using Best.SocketIO;
 using Best.SocketIO.Events;
+using Newtonsoft.Json.Linq;
+using System.Runtime.Serialization;
 
 public class SocketIOManager : MonoBehaviour
 {
-    [SerializeField]
-    private SlotBehaviour slotManager;
+    [Header("scripts")]
+    [SerializeField] private SlotBehaviour slotManager;
+    [SerializeField] private UIManager uIManager;
 
     internal GameData initialData = null;
     internal UIData initUIData = null;
@@ -30,13 +33,24 @@ public class SocketIOManager : MonoBehaviour
     [SerializeField]
     internal JSHandler _jsManager;
 
-    [SerializeField]
-    private string SocketURI;
+    //[SerializeField]
+    //private string SocketURI;
+
+    protected string SocketURI = "https://dev.casinoparadize.com";
+    //protected string SocketURI = "http://localhost:5000";
 
     [SerializeField]
     private string TestToken;
 
     protected string gameID = "SL-GF";
+
+    internal bool isLoading;
+
+
+    private void Awake()
+    {
+        isLoading = true;
+    }
 
     private void Start()
     {
@@ -154,6 +168,7 @@ public class SocketIOManager : MonoBehaviour
     private void OnDisconnected(string response)
     {
         Debug.Log("Disconnected from the server");
+        uIManager.DisconnectionPopup();
     }
 
     private void OnError(string response)
@@ -250,6 +265,7 @@ public class SocketIOManager : MonoBehaviour
         }
 
         slotManager.SetInitialUI();
+        isLoading = false;
 
         Application.ExternalCall("window.parent.postMessage", "OnEnter", "*");
     }
@@ -353,6 +369,8 @@ public class SocketIOManager : MonoBehaviour
 public class BetData
 {
     public double currentBet;
+    public double currentLines = 20;
+
     //public double TotalLines;
 }
 
@@ -389,7 +407,7 @@ public class GameData
 {
     public List<List<string>> Reel { get; set; }
     public List<List<int>> Lines { get; set; }
-    public List<int> Bets { get; set; }
+    public List<double> Bets { get; set; }
     public bool canSwitchLines { get; set; }
     public List<int> LinesCount { get; set; }
     public List<int> autoSpin { get; set; }
@@ -440,7 +458,34 @@ public class Paylines
 [Serializable]
 public class Symbol
 {
-    public Multiplier multiplier { get; set; }
+    public int ID { get; set; }
+    public string Name { get; set; }
+    [JsonProperty("multiplier")]
+    public object MultiplierObject { get; set; }
+
+    // This property will hold the properly deserialized list of lists of integers
+    [JsonIgnore]
+    public List<List<int>> Multiplier { get; private set; }
+
+    // Custom deserialization method to handle the conversion
+    [OnDeserialized]
+    internal void OnDeserializedMethod(StreamingContext context)
+    {
+        // Handle the case where multiplier is an object (empty in JSON)
+        if (MultiplierObject is JObject)
+        {
+            Multiplier = new List<List<int>>();
+        }
+        else
+        {
+            // Deserialize normally assuming it's an array of arrays
+            Multiplier = JsonConvert.DeserializeObject<List<List<int>>>(MultiplierObject.ToString());
+        }
+    }
+    public object defaultAmount { get; set; }
+    public object symbolsCount { get; set; }
+    public object increaseValue { get; set; }
+    public int freeSpin { get; set; }
 }
 
 [Serializable]
@@ -464,6 +509,7 @@ public class PlayerData
 {
     public double Balance { get; set; }
     public double haveWon { get; set; }
+    public double currentWining { get; set; }
 }
 
 
