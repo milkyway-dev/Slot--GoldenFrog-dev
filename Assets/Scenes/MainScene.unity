@@ -2318,7 +2318,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -2331,7 +2331,7 @@ MonoBehaviour:
     m_HighlightedSprite: {fileID: 21300000, guid: 1362948f88f064f2f9eba1826a043ec4, type: 3}
     m_PressedSprite: {fileID: 21300000, guid: 1362948f88f064f2f9eba1826a043ec4, type: 3}
     m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 21300000, guid: a9a6de1c2d912478095f6b383ad106a8, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -4213,7 +4213,6 @@ MonoBehaviour:
   uIManager: {fileID: 377874625}
   bonusdata: []
   _jsManager: {fileID: 500036493}
-  SocketURI: http://localhost:5000
   TestToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OTRjYjQzNzQ5MDkwY2YyNjJjZmI5NiIsInVzZXJuYW1lIjoicGxheWVyMSIsInJvbGUiOiJwbGF5ZXIiLCJpYXQiOjE3MjExMDQ5MTEsImV4cCI6MTcyMTE5MTMxMX0.aRw_VpfPSotDEkISoX8qJGkU3RBsLHtO4z0TR3Q89z0
 --- !u!114 &500036493
 MonoBehaviour:
@@ -9118,7 +9117,7 @@ MonoBehaviour:
     m_HighlightedSprite: {fileID: 21300000, guid: 29414521f51fe49c9bdcec573eed15b1, type: 3}
     m_PressedSprite: {fileID: 21300000, guid: 29414521f51fe49c9bdcec573eed15b1, type: 3}
     m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 21300000, guid: 29414521f51fe49c9bdcec573eed15b1, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: 603412599c79d40c0a203e3f16500753, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
