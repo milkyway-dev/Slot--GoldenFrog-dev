@@ -668,6 +668,8 @@ public class SlotBehaviour : MonoBehaviour
             if (TempList[i].transform.childCount > 0)
                 TempList[i].transform.GetChild(0).gameObject.SetActive(false);
         }
+        TempList.Clear();
+        TempList.TrimExcess();
     }
 
     //generate the payout lines generated 
