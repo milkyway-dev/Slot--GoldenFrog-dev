@@ -4213,7 +4213,7 @@ MonoBehaviour:
   uIManager: {fileID: 377874625}
   bonusdata: []
   _jsManager: {fileID: 500036493}
-  TestToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OTRjYjQzNzQ5MDkwY2YyNjJjZmI5NiIsInVzZXJuYW1lIjoicGxheWVyMSIsInJvbGUiOiJwbGF5ZXIiLCJpYXQiOjE3MjExMDQ5MTEsImV4cCI6MTcyMTE5MTMxMX0.aRw_VpfPSotDEkISoX8qJGkU3RBsLHtO4z0TR3Q89z0
+  TestToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YTBhNmJkYzVjODcyYjE2YzM2ZjFkZCIsInVzZXJuYW1lIjoic2F5YW4iLCJyb2xlIjoicGxheWVyIiwiaWF0IjoxNzIxODkxMzg4LCJleHAiOjE3MjE5Nzc3ODh9.4Qr9_3VKAktcdWnfzenxefIHqnuxTqCi0ACYL91fqac
 --- !u!114 &500036493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12050,7 +12050,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1664697763
 RectTransform:
   m_ObjectHideFlags: 0

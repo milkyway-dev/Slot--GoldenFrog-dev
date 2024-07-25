@@ -497,6 +497,10 @@ public class SlotBehaviour : MonoBehaviour
         if (currentBalance < currentTotalBet)
         {
             CompareBalance();
+            if (IsAutoSpin) {
+                StopAutoSpin();
+                yield return new WaitForSeconds(1f);
+            }
             yield break;
         }
         ToggleButtonGrp(false);
@@ -553,11 +557,11 @@ public class SlotBehaviour : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.5f);
+        if (audioController) audioController.StopSpinAudio();
 
         CheckPayoutLineBackend(SocketManager.resultData.linesToEmit, SocketManager.resultData.FinalsymbolsToEmit);
 
         KillAllTweens();
-        if (audioController) audioController.StopSpinAudio();
 
         CheckPopups = true;
 

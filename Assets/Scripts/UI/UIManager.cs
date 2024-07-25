@@ -399,13 +399,9 @@ public class UIManager : MonoBehaviour
         for (int i = 0; i < paylines.symbols.Count; i++)
         {
 
-            //            3 or more Scatter symbols appering anywhereon the reels in the main game activate free spins<br>
-            //< color =#ED5B04>3 Scatters = 10 free spins
-            //4 Scatters = 15 free spins
-            //5 Scatters = 20 free spins</ color >
             if (paylines.symbols[i].Name.ToUpper() == "SCATTER")
             {
-                if (Scatter_Text) Scatter_Text.text = "Offers higher pay outs and awards.\nPayout:\n <color=#ED5B04>5x - " + paylines.symbols[i].Multiplier[0][0]+ "</color >\n" + "<color=#ED5B04>4x - " + paylines.symbols[i].Multiplier[1][0] + "</color >\n" + "<color=#ED5B04> 3x - " + paylines.symbols[i].Multiplier[2][0] + "</color >";
+               Scatter_Text.text = "Offers higher pay outs and awards.\nPayout:\n <color=#ED5B04>5x - " + paylines.symbols[i].Multiplier[0][0]+ "</color >\n" + "<color=#ED5B04>4x - " + paylines.symbols[i].Multiplier[1][0] + "</color >\n" + "<color=#ED5B04> 3x - " + paylines.symbols[i].Multiplier[2][0] + "</color >";
             }
 
 
