@@ -150,6 +150,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image progressbar;
     [SerializeField] private TMP_Text loadingText;
 
+    [Header("AnotherDevice Popup")]
+    [SerializeField] private Button CloseAD_Button;
+    [SerializeField] private GameObject ADPopup_Object;
     //private int FreeSpins;
     [Header("Pagination")]
     int CurrentIndex = 0;
@@ -374,7 +377,10 @@ public class UIManager : MonoBehaviour
         //PopulateSpecialSymbols(Specialsymbols);
     }
 
-
+    internal void ADfunction()
+    {
+        OpenPopup(ADPopup_Object); 
+    }
 
     private void PopulateSymbolsPayout(Paylines paylines)
     {
