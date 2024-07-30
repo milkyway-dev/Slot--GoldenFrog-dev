@@ -351,7 +351,7 @@ public class SlotBehaviour : MonoBehaviour
     {
         if (Slot_Objects[number]) Slot_Objects[number].SetActive(true);
 
-        for (int i = 0; i < 18; i++)
+        for (int i = 0; i < values.Count; i++)
         {
             GameObject myImg = Instantiate(Image_Prefab, Slot_Transform[number]);
             images[number].slotImages.Add(myImg.transform.GetChild(0).GetComponent<Image>());
@@ -367,7 +367,7 @@ public class SlotBehaviour : MonoBehaviour
         }
 
         if (mainContainer_RT) LayoutRebuilder.ForceRebuildLayoutImmediate(mainContainer_RT);
-        tweenHeight = (20 * IconSizeFactor) - 280;
+        tweenHeight = (values.Count * IconSizeFactor) - 280;
         GenerateMatrix(number);
     }
 
@@ -533,10 +533,14 @@ public class SlotBehaviour : MonoBehaviour
         {
             Debug.Log("Error while conversion " + e.Message);
         }
-
+        double initAmount=balance;
         balance = balance - (bet);
 
-        if (Balance_text) Balance_text.text = balance.ToString("f2");
+            DOTween.To(() => initAmount, (val) => initAmount = val, balance, 0.8f).OnUpdate(() =>
+            {
+                if (Balance_text) Balance_text.text = initAmount.ToString("f2");
+            });
+
 
         SocketManager.AccumulateResult(BetCounter);
         yield return new WaitForSeconds(0.5f);
