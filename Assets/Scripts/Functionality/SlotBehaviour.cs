@@ -620,6 +620,17 @@ public class SlotBehaviour : MonoBehaviour
 
     }
 
+    private void OnApplicationFocus(bool focus)
+    {
+        if(focus)
+        {
+            if(!IsSpinning)
+            {
+                if (audioController) audioController.StopWLAaudio();
+            }
+        }
+    }
+
     internal void CallCloseSocket()
     {
         SocketManager.CloseSocket();
