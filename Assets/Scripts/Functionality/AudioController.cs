@@ -17,7 +17,7 @@ public class AudioController : MonoBehaviour
     [SerializeField] private AudioClip Win_Audio;
     [SerializeField] private AudioClip NormalBg_Audio;
 
-    private void Start()
+    private void Awake()
     {
         playBgAudio();
         //if (bg_adudio) bg_adudio.Play();
@@ -109,7 +109,7 @@ public class AudioController : MonoBehaviour
 
         //StopButtonAudio();
         audioPlayer_button.Play();
-        Invoke("StopButtonAudio", audioPlayer_button.clip.length);
+        // Invoke("StopButtonAudio", audioPlayer_button.clip.length);
 
     }
 

@@ -86,6 +86,8 @@ public class SlotBehaviour : MonoBehaviour
     [SerializeField]
     private TMP_Text BetPerLine_text;
 
+    [SerializeField] private TMP_Text Total_lines;
+
     [Header("Audio Management")]
     [SerializeField] private AudioController audioController;
 
@@ -203,7 +205,6 @@ public class SlotBehaviour : MonoBehaviour
         {
             StartSlots(IsAutoSpin);
             yield return tweenroutine;
-
 
         }
     }
@@ -328,10 +329,11 @@ public class SlotBehaviour : MonoBehaviour
     {
         BetCounter = SocketManager.initialData.Bets.Count - 1;
         LineCounter = SocketManager.initialData.LinesCount.Count - 1;
-        if (TotalBet_text) TotalBet_text.text = ((SocketManager.initialData.Bets[BetCounter] * SocketManager.initialData.Lines.Count)).ToString();
+        if (TotalBet_text) TotalBet_text.text = (SocketManager.initialData.Bets[BetCounter] * SocketManager.initialData.Lines.Count).ToString();
         if (BetPerLine_text) BetPerLine_text.text = SocketManager.initialData.Bets[BetCounter].ToString();
         if (TotalWin_text) TotalWin_text.text = SocketManager.playerdata.currentWining.ToString("f2");
         if (Balance_text) Balance_text.text = SocketManager.playerdata.Balance.ToString("f2");
+        if(Total_lines) Total_lines.text=SocketManager.initialData.Lines.Count.ToString();
         currentBalance = SocketManager.playerdata.Balance;
         currentTotalBet = SocketManager.initialData.Bets[BetCounter] * SocketManager.initialData.Lines.Count;
         CompareBalance();
@@ -569,15 +571,15 @@ public class SlotBehaviour : MonoBehaviour
 
         currentBalance = SocketManager.playerdata.Balance;
 
-        if (SocketManager.resultData.WinAmout >= bet * 5 && SocketManager.resultData.WinAmout < bet * 10)
+        if (SocketManager.resultData.WinAmout >= bet * 10 && SocketManager.resultData.WinAmout < bet * 15)
         {
             uiManager.PopulateWin(1, SocketManager.resultData.WinAmout);
         }
-        else if (SocketManager.resultData.WinAmout >= bet * 10 && SocketManager.resultData.WinAmout < bet * 15)
+        else if (SocketManager.resultData.WinAmout >= bet * 15 && SocketManager.resultData.WinAmout < bet * 20)
         {
             uiManager.PopulateWin(2, SocketManager.resultData.WinAmout);
         }
-        else if (SocketManager.resultData.WinAmout >= bet * 15)
+        else if (SocketManager.resultData.WinAmout >= bet * 20)
         {
             uiManager.PopulateWin(3, SocketManager.resultData.WinAmout);
         }

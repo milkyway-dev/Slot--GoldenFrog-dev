@@ -106,7 +106,6 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private TMP_Text Win_Text;
 
-    [SerializeField] private Button GameExit_Button;
 
     [Header("jackpot Win Popup")]
     [SerializeField] private TMP_Text jackpot_Text;
@@ -134,15 +133,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button CloseDisconnect_Button;
     [SerializeField] private GameObject DisconnectPopup_Object;
 
-    //[Header("Settings Popup")]
-    //[SerializeField] private GameObject SettingPoppUp_Object;
-    //[SerializeField] private Button Setting_button;
-    //[SerializeField] private Button SettingClose_button;
-    //private AudioSource BG_Sounds;
-    //[SerializeField]
-    //private AudioSource Button_Sounds;
-    //[SerializeField]
-    //private AudioSource Spin_Sounds;
+    [Header("Quit Popup")]
+    [SerializeField] private GameObject QuitPopupObject;
+    [SerializeField] private Button yes_Button;
+    [SerializeField] private Button GameExit_Button;
+    [SerializeField] private Button no_Button;
 
 
     [Header("Splash Screen")]
@@ -177,8 +172,14 @@ public class UIManager : MonoBehaviour
         //if (Menu_Button) Menu_Button.onClick.RemoveAllListeners();
         //if (Menu_Button) Menu_Button.onClick.AddListener(OpenMenu);
 
-        //if (Exit_Button) Exit_Button.onClick.RemoveAllListeners();
-        //if (Exit_Button) Exit_Button.onClick.AddListener(CloseMenu);
+        if (yes_Button) yes_Button.onClick.RemoveAllListeners();
+        if (yes_Button) yes_Button.onClick.AddListener(CallOnExitFunction);
+
+        if (no_Button) no_Button.onClick.RemoveAllListeners();
+        if (no_Button) no_Button.onClick.AddListener(delegate { ClosePopup(QuitPopupObject); });
+
+        if (GameExit_Button) GameExit_Button.onClick.RemoveAllListeners();
+        if (GameExit_Button) GameExit_Button.onClick.AddListener(delegate { OpenPopup(QuitPopupObject); });
 
         if (About_Button) About_Button.onClick.RemoveAllListeners();
         if (About_Button) About_Button.onClick.AddListener(delegate { OpenPopup(AboutPopup_Object); });
@@ -216,8 +217,7 @@ public class UIManager : MonoBehaviour
         //if (SoundOn_Object) SoundOn_Object.SetActive(true);
         //if (SoundOff_Object) SoundOff_Object.SetActive(false);
 
-        if (GameExit_Button) GameExit_Button.onClick.RemoveAllListeners();
-        if (GameExit_Button) GameExit_Button.onClick.AddListener(CallOnExitFunction);
+
 
         paytableList[CurrentIndex = 0].SetActive(true);
 
@@ -279,7 +279,6 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(1f);
         if (spalsh_screen) spalsh_screen.SetActive(false);
         StopCoroutine(LoadingTextAnimate());
-        audioController.playBgAudio();
     }
 
     private IEnumerator LoadingTextAnimate()
@@ -478,6 +477,7 @@ public class UIManager : MonoBehaviour
 
     private void OpenPopup(GameObject Popup)
     {
+        if(audioController) audioController.PlayButtonAudio();
         if (Popup) Popup.SetActive(true);
         if (MainPopup_Object) MainPopup_Object.SetActive(true);
         paytableList[CurrentIndex = 0].SetActive(true);
@@ -485,6 +485,7 @@ public class UIManager : MonoBehaviour
 
     private void ClosePopup(GameObject Popup)
     {
+        if(audioController) audioController.PlayButtonAudio();
         if (Popup) Popup.SetActive(false);
         if (MainPopup_Object) MainPopup_Object.SetActive(false);
         paytableList[CurrentIndex].SetActive(false);
@@ -494,6 +495,8 @@ public class UIManager : MonoBehaviour
 
     private void Slide(int direction)
     {
+        if(audioController) audioController.PlayButtonAudio();
+
         if (CurrentIndex < paytableList.Length - 1 && direction > 0)
         {
             // Move to the next item
