@@ -379,70 +379,70 @@ public class SlotBehaviour : MonoBehaviour
         animScript.textureArray.TrimExcess();
         switch (val)
         {
-            case 0:
+            case 8:
                 for (int i = 0; i < Coin_Sprite.Length; i++)
                 {
                     animScript.textureArray.Add(Coin_Sprite[i]);
                 }
                 animScript.AnimationSpeed = 25f;
                 break;
-            case 1:
+            case 9:
                 for (int i = 0; i < Frog_Sprite.Length; i++)
                 {
                     animScript.textureArray.Add(Frog_Sprite[i]);
                 }
                 animScript.AnimationSpeed = 25f;
                 break;
-            case 2:
+            case 6:
                 for (int i = 0; i < Turtle_Sprite.Length; i++)
                 {
                     animScript.textureArray.Add(Turtle_Sprite[i]);
                 }
                 animScript.AnimationSpeed = 25f;
                 break;
-            case 3:
+            case 7:
                 for (int i = 0; i < Cap_Sprite.Length; i++)
                 {
                     animScript.textureArray.Add(Cap_Sprite[i]);
                 }
                 animScript.AnimationSpeed = 25f;
                 break;
-            case 4:
+            case 5:
                 for (int i = 0; i < Fish_Sprite.Length; i++)
                 {
                     animScript.textureArray.Add(Fish_Sprite[i]);
                 }
                 animScript.AnimationSpeed = 25f;
                 break;
-            case 5:
+            case 4:
                 for (int i = 0; i < Ten_Sprite.Length; i++)
                 {
                     animScript.textureArray.Add(Ten_Sprite[i]);
                 }
                 animScript.AnimationSpeed = 29f;
                 break;
-            case 6:
+            case 0:
                 for (int i = 0; i < A_Sprite.Length; i++)
                 {
                     animScript.textureArray.Add(A_Sprite[i]);
                 }
                 animScript.AnimationSpeed = 29f;
                 break;
-            case 7:
+            case 3:
                 for (int i = 0; i < J_Sprite.Length; i++)
                 {
                     animScript.textureArray.Add(J_Sprite[i]);
                 }
                 animScript.AnimationSpeed = 30f;
                 break;
-            case 8:
+            case 1:
                 for (int i = 0; i < K_Sprite.Length; i++)
                 {
                     animScript.textureArray.Add(K_Sprite[i]);
                 }
                 animScript.AnimationSpeed = 29f;
                 break;
-            case 9:
+            case 2:
                 for (int i = 0; i < Q_Sprite.Length; i++)
                 {
                     animScript.textureArray.Add(Q_Sprite[i]);
@@ -457,9 +457,6 @@ public class SlotBehaviour : MonoBehaviour
                 }
                 animScript.AnimationSpeed = 25f;
                 break;
-
-
-
 
         }
     }
