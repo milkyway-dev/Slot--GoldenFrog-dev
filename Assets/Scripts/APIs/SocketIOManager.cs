@@ -161,7 +161,7 @@ public class SocketIOManager : MonoBehaviour
     private void OnSocketAlert(string data)
     {
         Debug.Log("Received alert with data: " + data);
-        AliveRequest("YES I AM ALIVE");
+        // AliveRequest("YES I AM ALIVE");
     }
 
     private void OnSocketOtherDevice(string data)
@@ -175,13 +175,44 @@ public class SocketIOManager : MonoBehaviour
         InitData message = new InitData();
         if (this.manager.Socket != null && this.manager.Socket.IsOpen)
         {
-            this.manager.Socket.Emit(eventName);
+            // this.manager.Socket.Emit(eventName);
+            this.manager.Socket.Emit("YES I AM ALIVE");
             Debug.Log("JSON data sent: alive");
         }
         else
         {
             Debug.LogWarning("Socket is not connected.");
         }
+    }
+
+    void OnConnected(ConnectResponse resp)
+    {
+        Debug.Log("Connected!");
+        SendPing();
+
+        //InitRequest("AUTH");
+    }
+
+    private void SendPing()
+    {
+        InvokeRepeating("AliveRequest", 0f, 3f);
+    }
+
+    private void OnDisconnected(string response)
+    {
+        Debug.Log("Disconnected from the server");
+        uIManager.DisconnectionPopup();
+    }
+
+    private void OnError(string response)
+    {
+        Debug.LogError("Error: " + response);
+    }
+
+    private void OnListenEvent(string data)
+    {
+        Debug.Log("Received some_event with data: " + data);
+        ParseResponse(data);
     }
 
     private void SetupSocketManager(SocketOptions options)
@@ -205,28 +236,7 @@ public class SocketIOManager : MonoBehaviour
     }
 
     // Connected event handler implementation
-    void OnConnected(ConnectResponse resp)
-    {
-        Debug.Log("Connected!");
-        //InitRequest("AUTH");
-    }
 
-    private void OnDisconnected(string response)
-    {
-        Debug.Log("Disconnected from the server");
-        uIManager.DisconnectionPopup();
-    }
-
-    private void OnError(string response)
-    {
-        Debug.LogError("Error: " + response);
-    }
-
-    private void OnListenEvent(string data)
-    {
-        Debug.Log("Received some_event with data: " + data);
-        ParseResponse(data);
-    }
 
     private void InitRequest(string eventName)
     {
