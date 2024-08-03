@@ -341,15 +341,13 @@ public class UIManager : MonoBehaviour
         {
             if (jackpot)
             {
-                if (jackpot_Object) jackpot_Object.SetActive(true);
+                ClosePopup(jackpot_Object);
 
             }
             else
             {
-                if (WinPopup_Object) WinPopup_Object.SetActive(false);
-
+                ClosePopup(WinPopup_Object);
             }
-            if (MainPopup_Object) MainPopup_Object.SetActive(false);
             slotManager.CheckPopups = false;
         });
     }
@@ -487,7 +485,10 @@ public class UIManager : MonoBehaviour
     {
         if(audioController) audioController.PlayButtonAudio();
         if (Popup) Popup.SetActive(false);
-        if (MainPopup_Object) MainPopup_Object.SetActive(false);
+        if (!DisconnectPopup_Object.activeSelf)
+        {
+            if (MainPopup_Object) MainPopup_Object.SetActive(false);
+        }
         paytableList[CurrentIndex].SetActive(false);
     }
 

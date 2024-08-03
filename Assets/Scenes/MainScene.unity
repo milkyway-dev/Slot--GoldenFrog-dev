@@ -13060,12 +13060,12 @@ RectTransform:
   - {fileID: 103253978}
   - {fileID: 927980917}
   - {fileID: 1802858815}
-  - {fileID: 1808776918}
   - {fileID: 379363303}
   - {fileID: 1716677961}
   - {fileID: 921072605}
   - {fileID: 1664697763}
   - {fileID: 348758723}
+  - {fileID: 1808776918}
   m_Father: {fileID: 1485219722}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
