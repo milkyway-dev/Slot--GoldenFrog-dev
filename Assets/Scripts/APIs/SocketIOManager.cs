@@ -90,19 +90,20 @@ public class SocketIOManager : MonoBehaviour
                 };
                 options.Auth = authFunction;
                 // Proceed with connecting to the server
-                SetupSocketManager(options);
+                StartCoroutine(WaitForAuthToken(options));
             }
             else
             {
-                Application.ExternalEval(@"
-                window.addEventListener('message', function(event) {
-                    if (event.data.type === 'authToken') {
-                        // Send the message to Unity
-                        SendMessage('SocketManager', 'ReceiveAuthToken', event.data.cookie);
-                    }});");
+                Debug.Log("Unable to fetch Auth Token Ekansh");
+                //Application.ExternalEval(@"
+                //window.addEventListener('message', function(event) {
+                //    if (event.data.type === 'authToken') {
+                //        // Send the message to Unity
+                //        SendMessage('SocketManager', 'ReceiveAuthToken', event.data.cookie);
+                //    }});");
 
-                // Start coroutine to wait for the auth token
-                StartCoroutine(WaitForAuthToken(options));
+                //// Start coroutine to wait for the auth token
+                //StartCoroutine(WaitForAuthToken(options));
             }
         });
 #else
