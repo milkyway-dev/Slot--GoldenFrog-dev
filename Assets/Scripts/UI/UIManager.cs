@@ -144,6 +144,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject spalsh_screen;
     [SerializeField] private Image progressbar;
     [SerializeField] private TMP_Text loadingText;
+    [SerializeField]
+    private Button QuitSplash_button;
 
     [Header("AnotherDevice Popup")]
     [SerializeField] private Button CloseAD_Button;
@@ -236,6 +238,9 @@ public class UIManager : MonoBehaviour
         //if (FreeSpin_Button) FreeSpin_Button.onClick.AddListener(delegate { StartFreeSpins(FreeSpins); });
 
         //if (audioController) audioController.ToggleMute(false);
+
+        if (QuitSplash_button) QuitSplash_button.onClick.RemoveAllListeners();
+        if (QuitSplash_button) QuitSplash_button.onClick.AddListener(delegate { OpenPopup(QuitPopupObject); });
 
         isMusic = false;
         isSound = false;
