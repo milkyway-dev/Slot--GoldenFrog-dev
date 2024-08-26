@@ -46,14 +46,15 @@ public class SocketIOManager : MonoBehaviour
     protected string gameID = "SL-GF";
 
     internal bool isLoading;
-
+    internal bool SetInit=false;
     private const int maxReconnectionAttempts = 6;
     private readonly TimeSpan reconnectionDelay = TimeSpan.FromSeconds(10);
 
     private void Awake()
     {
         isLoading = true;
-        Debug.unityLogger.logEnabled = false;
+        SetInit=false;
+        // Debug.unityLogger.logEnabled = false;
     }
 
     private void Start()
@@ -262,15 +263,23 @@ public class SocketIOManager : MonoBehaviour
         {
             case "InitData":
                 {
-                    Debug.Log(jsonObject);
                     initialData = myData.message.GameData;
                     initUIData = myData.message.UIData;
                     playerdata = myData.message.PlayerData;
                     bonusdata = myData.message.BonusData;
-                    List<string> LinesString = ConvertListListIntToListString(initialData.Lines);
-                    List<string> InitialReels = ConvertListOfListsToStrings(initialData.Reel);
-                    InitialReels = RemoveQuotes(InitialReels);
-                    PopulateSlotSocket(InitialReels, LinesString);
+                    if (!SetInit)
+                    {
+                        Debug.Log(jsonObject);
+                        List<string> LinesString = ConvertListListIntToListString(initialData.Lines);
+                        List<string> InitialReels = ConvertListOfListsToStrings(initialData.Reel);
+                        InitialReels = RemoveQuotes(InitialReels);
+                        PopulateSlotSocket(InitialReels, LinesString);
+                        SetInit = true;
+                    }
+                    else
+                    {
+                        RefreshUI();
+                    }
                     break;
                 }
             case "ResultData":
@@ -286,6 +295,10 @@ public class SocketIOManager : MonoBehaviour
         }
     }
 
+    private void RefreshUI()
+    {
+        uIManager.InitialiseUIData(initUIData.AbtLogo.link, initUIData.AbtLogo.logoSprite, initUIData.ToULink, initUIData.PopLink, initUIData.paylines);
+    }
     private void PopulateSlotSocket(List<string> slotPop, List<string> LineIds)
     {
         slotManager.shuffleInitialMatrix();
@@ -529,6 +542,7 @@ public class Symbol
     public object defaultAmount { get; set; }
     public object symbolsCount { get; set; }
     public object increaseValue { get; set; }
+    public object description { get; set; }
     public int freeSpin { get; set; }
 }
 

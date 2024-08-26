@@ -73,6 +73,7 @@ public class UIManager : MonoBehaviour
     [Header("Paytable Texts")]
     [SerializeField] private TMP_Text[] SymbolsText;
     [SerializeField] private TMP_Text Scatter_Text;
+    [SerializeField] private TMP_Text Wild_Text;
 
     [Header("Settings Popup")]
     [SerializeField] private GameObject SettingsPopup_Object;
@@ -363,7 +364,7 @@ public class UIManager : MonoBehaviour
         OpenPopup(LowBalancePopup_Object);
     }
 
-    internal void InitialiseUIData(string SupportUrl, string AbtImgUrl, string TermsUrl, string PrivacyUrl, Paylines symbolsText, List<string> Specialsymbols)
+    internal void InitialiseUIData(string SupportUrl, string AbtImgUrl, string TermsUrl, string PrivacyUrl, Paylines symbolsText)
     {
         //if (Support_Button) Support_Button.onClick.RemoveAllListeners();
         //if (Support_Button) Support_Button.onClick.AddListener(delegate { UrlButtons(SupportUrl); });
@@ -409,11 +410,25 @@ public class UIManager : MonoBehaviour
 
             if (paylines.symbols[i].Name.ToUpper() == "SCATTER")
             {
-               Scatter_Text.text = "Offers higher pay outs and awards.\nPayout:\n <color=#ED5B04>5x - " + paylines.symbols[i].Multiplier[0][0]+ "</color >\n" + "<color=#ED5B04>4x - " + paylines.symbols[i].Multiplier[1][0] + "</color >\n" + "<color=#ED5B04> 3x - " + paylines.symbols[i].Multiplier[2][0] + "</color >";
+                if (Scatter_Text) Scatter_Text.text = paylines.symbols[i].description.ToString();
             }
 
-
+            if (paylines.symbols[i].Name.ToUpper() == "WILD")
+            {
+                if (Wild_Text) Wild_Text.text = paylines.symbols[i].description.ToString();
+            }
         }
+
+        // for (int i = 0; i < paylines.symbols.Count; i++)
+        // {
+
+        //     if (paylines.symbols[i].Name.ToUpper() == "SCATTER")
+        //     {
+        //        Scatter_Text.text = "Offers higher pay outs and awards.\nPayout:\n <color=#ED5B04>5x - " + paylines.symbols[i].Multiplier[0][0]+ "</color >\n" + "<color=#ED5B04>4x - " + paylines.symbols[i].Multiplier[1][0] + "</color >\n" + "<color=#ED5B04> 3x - " + paylines.symbols[i].Multiplier[2][0] + "</color >";
+        //     }
+
+
+        // }
     }
 
     private void CallOnExitFunction()
@@ -510,6 +525,7 @@ public class UIManager : MonoBehaviour
             paytableList[CurrentIndex + 1].SetActive(true);
 
             CurrentIndex++;
+            
 
 
         }
@@ -523,6 +539,17 @@ public class UIManager : MonoBehaviour
             CurrentIndex--;
 
 
+        }
+        if(CurrentIndex==paytableList.Length - 1){
+            RightBtn.interactable=false;
+        }else{
+            RightBtn.interactable=true;
+
+        }
+        if(CurrentIndex==0){
+            LeftBtn.interactable=false;
+        }else{
+            LeftBtn.interactable=true;
         }
 
 
