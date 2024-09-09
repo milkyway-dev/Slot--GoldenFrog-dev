@@ -107,11 +107,11 @@ public class UIManager : MonoBehaviour
     private bool isExit = false;
 
 
-    private void Awake()
-    {
-        if (spalsh_screen) spalsh_screen.SetActive(true);
-        StartCoroutine(LoadingRoutine());
-    }
+    //private void Awake()
+    //{
+    //    if (spalsh_screen) spalsh_screen.SetActive(true);
+    //    StartCoroutine(LoadingRoutine());
+    //}
 
     private void Start()
     {
