@@ -131,6 +131,7 @@ public class SlotBehaviour : MonoBehaviour
     private Coroutine tweenroutine = null;
     private bool IsAutoSpin = false;
     private bool IsSpinning = false;
+    private bool CheckSpinAudio = false;
     [SerializeField]
     private int spacefactor;
 
@@ -494,7 +495,6 @@ public class SlotBehaviour : MonoBehaviour
     {
 
         yield return new WaitForSeconds(0.1f);
-        if (audioController) audioController.PlaySpinAudio();
         IsSpinning = true;
         if (currentBalance < currentTotalBet)
         {
@@ -505,6 +505,8 @@ public class SlotBehaviour : MonoBehaviour
             }
             yield break;
         }
+        if (audioController) audioController.PlaySpinAudio();
+        CheckSpinAudio = true;
         ToggleButtonGrp(false);
 
         for (int i = 0; i < numberOfSlots; i++)
@@ -611,13 +613,7 @@ public class SlotBehaviour : MonoBehaviour
 
     private void OnApplicationFocus(bool focus)
     {
-        if(focus)
-        {
-            if(!IsSpinning)
-            {
-                if (audioController) audioController.StopWLAaudio();
-            }
-        }
+        audioController.CheckFocusFunction(focus, CheckSpinAudio);
     }
 
     internal void CallCloseSocket()
@@ -718,11 +714,11 @@ public class SlotBehaviour : MonoBehaviour
                 }
             }
         }
-        //else
-        //{
-
-        //    if (audioController) audioController.PLayWLSaudio("lose");
-        //}
+        else
+        {
+            if (audioController) audioController.StopWLAaudio();
+        }
+        CheckSpinAudio = false;
     }
 
     #region TweeningCode
