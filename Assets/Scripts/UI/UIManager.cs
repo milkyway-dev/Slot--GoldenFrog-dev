@@ -102,16 +102,26 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button RightBtn;
     [SerializeField] private Button LeftBtn;
 
+    [SerializeField]
+    private Button m_AwakeGameButton;
     private bool isMusic = true;
     private bool isSound = true;
     private bool isExit = false;
 
 
-    //private void Awake()
-    //{
-    //    if (spalsh_screen) spalsh_screen.SetActive(true);
-    //    StartCoroutine(LoadingRoutine());
-    //}
+    private void Awake()
+    {
+        //if (spalsh_screen) spalsh_screen.SetActive(true);
+        //StartCoroutine(LoadingRoutine());
+        SimulateClickByDefault();
+    }
+
+    private void SimulateClickByDefault()
+    {
+        Debug.Log("Awaken The Game...");
+        m_AwakeGameButton.onClick.AddListener(() => { Debug.Log("Called The Game..."); });
+        m_AwakeGameButton.onClick.Invoke();
+    }
 
     private void Start()
     {
