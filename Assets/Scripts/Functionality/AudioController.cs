@@ -64,20 +64,29 @@ public class AudioController : MonoBehaviour
 
     }
 
-    private void OnApplicationFocus(bool focus)
+    internal void CheckFocusFunction(bool focus, bool IsSpinning)
     {
         if (!focus)
         {
-
             bg_adudio.Pause();
             audioPlayer_wl.Pause();
             audioPlayer_button.Pause();
+            audioPlayer_Spin.Pause();
         }
         else
         {
-            if (!bg_adudio.mute) bg_adudio.Play();
-            if (!audioPlayer_wl.mute) audioPlayer_wl.Play();
-            if (!audioPlayer_button.mute) audioPlayer_button.Play();
+            if (!bg_adudio.mute) bg_adudio.UnPause();
+            if (IsSpinning)
+            {
+                if (!audioPlayer_wl.mute) audioPlayer_wl.UnPause();
+                audioPlayer_Spin.UnPause();
+            }
+            else
+            {
+                StopWLAaudio();
+                audioPlayer_Spin.Stop();
+            }
+            if (!audioPlayer_button.mute) audioPlayer_button.UnPause();
 
         }
     }
