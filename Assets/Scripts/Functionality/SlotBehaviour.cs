@@ -493,18 +493,16 @@ public class SlotBehaviour : MonoBehaviour
     //manage the Routine for spinning of the slots
     private IEnumerator TweenRoutine()
     {
-
         yield return new WaitForSeconds(0.1f);
-        IsSpinning = true;
         if (currentBalance < currentTotalBet)
         {
             CompareBalance();
-            if (IsAutoSpin) {
-                StopAutoSpin();
-                yield return new WaitForSeconds(1f);
-            }
+            StopAutoSpin();
+            yield return new WaitForSeconds(1f);
+            ToggleButtonGrp(true);
             yield break;
         }
+        IsSpinning = true;
         if (audioController) audioController.PlaySpinAudio();
         CheckSpinAudio = true;
         ToggleButtonGrp(false);
@@ -637,13 +635,6 @@ public class SlotBehaviour : MonoBehaviour
         if (currentBalance < currentTotalBet)
         {
             uiManager.LowBalPopup();
-            if (AutoSpin_Button) AutoSpin_Button.interactable = false;
-            if (SlotStart_Button) SlotStart_Button.interactable = false;
-        }
-        else
-        {
-            if (AutoSpin_Button) AutoSpin_Button.interactable = true;
-            if (SlotStart_Button) SlotStart_Button.interactable = true;
         }
     }
 
