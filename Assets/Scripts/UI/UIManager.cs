@@ -234,7 +234,7 @@ public class UIManager : MonoBehaviour
 
     private void StartPopupAnim(double amount, bool jackpot = false)
     {
-        int initAmount = 0;
+        double initAmount = 0;
         if (jackpot)
         {
             if (jackpot_Object) jackpot_Object.SetActive(true);
@@ -247,7 +247,7 @@ public class UIManager : MonoBehaviour
 
         if (MainPopup_Object) MainPopup_Object.SetActive(true);
 
-        DOTween.To(() => initAmount, (val) => initAmount = val, (int)amount, 5f).OnUpdate(() =>
+        DOTween.To(() => initAmount, (val) => initAmount = val, amount, 5f).OnUpdate(() =>
         {
             if (jackpot)
             {
