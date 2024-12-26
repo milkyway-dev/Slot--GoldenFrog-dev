@@ -107,6 +107,10 @@ public class UIManager : MonoBehaviour
     private bool isMusic = true;
     private bool isSound = true;
     private bool isExit = false;
+    private Tween WinPopupTextTween;
+    private Tween ClosePopupTween;
+    [SerializeField] private Button SkipWinAnimation;
+    [SerializeField] private Button SkipJackpotAnimation;
 
 
     private void Awake()
@@ -158,6 +162,12 @@ public class UIManager : MonoBehaviour
         if (SoundOff_Button) SoundOff_Button.onClick.RemoveAllListeners();
         if (SoundOff_Button) SoundOff_Button.onClick.AddListener(ToggleSound);
 
+        if (SkipWinAnimation) SkipWinAnimation.onClick.RemoveAllListeners();
+        if (SkipWinAnimation) SkipWinAnimation.onClick.AddListener(SkipWin);
+
+        if (SkipJackpotAnimation) SkipJackpotAnimation.onClick.RemoveAllListeners();
+        if (SkipJackpotAnimation) SkipJackpotAnimation.onClick.AddListener(SkipWin);
+
         paytableList[CurrentIndex = 0].SetActive(true);
 
         if (LeftBtn) LeftBtn.onClick.RemoveAllListeners();
@@ -181,6 +191,25 @@ public class UIManager : MonoBehaviour
         ToggleSound();
 
 
+    }
+
+
+    void SkipWin()
+    {
+        Debug.Log("Skip win called");
+        if (ClosePopupTween != null)
+        {
+            ClosePopupTween.Kill();
+            ClosePopupTween = null;
+        }
+        if (WinPopupTextTween != null)
+        {
+            WinPopupTextTween.Kill();
+            WinPopupTextTween = null;
+        }
+        ClosePopup(WinPopup_Object);
+        ClosePopup(jackpot_Object);
+        slotManager.CheckPopups = false;
     }
 
     internal void PopulateWin(int value, double amount)
@@ -247,7 +276,7 @@ public class UIManager : MonoBehaviour
 
         if (MainPopup_Object) MainPopup_Object.SetActive(true);
 
-        DOTween.To(() => initAmount, (val) => initAmount = val, amount, 5f).OnUpdate(() =>
+        WinPopupTextTween = DOTween.To(() => initAmount, (val) => initAmount = val, amount, 5f).OnUpdate(() =>
         {
             if (jackpot)
             {
@@ -260,7 +289,7 @@ public class UIManager : MonoBehaviour
             }
         });
 
-        DOVirtual.DelayedCall(6f, () =>
+        ClosePopupTween = DOVirtual.DelayedCall(6f, () =>
         {
             if (jackpot)
             {
@@ -298,15 +327,15 @@ public class UIManager : MonoBehaviour
             string text = null;
             if (paylines.symbols[i].Multiplier[0][0] != 0)
             {
-                text += "5x - " + paylines.symbols[i].Multiplier[0][0];
+                text += "5x - " + paylines.symbols[i].Multiplier[0][0] + "x";
             }
             if (paylines.symbols[i].Multiplier[1][0] != 0)
             {
-                text += "\n4x - " + paylines.symbols[i].Multiplier[1][0];
+                text += "\n4x - " + paylines.symbols[i].Multiplier[1][0] + "x";
             }
             if (paylines.symbols[i].Multiplier[2][0] != 0)
             {
-                text += "\n3x - " + paylines.symbols[i].Multiplier[2][0];
+                text += "\n3x - " + paylines.symbols[i].Multiplier[2][0] + "x";
             }
             if (SymbolsText[i]) SymbolsText[i].text = text;
         }
