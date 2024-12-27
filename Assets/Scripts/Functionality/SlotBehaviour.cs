@@ -280,12 +280,20 @@ public class SlotBehaviour : MonoBehaviour
             {
                 BetCounter++;
             }
+            else
+            {
+                BetCounter = 0;
+            }
         }
         else
         {
             if (BetCounter > 0)
             {
                 BetCounter--;
+            }
+            else
+            {
+                BetCounter = SocketManager.initialData.Bets.Count - 1;
             }
         }
 
@@ -786,6 +794,7 @@ public class SlotBehaviour : MonoBehaviour
     private IEnumerator StopTweening(int reqpos, Transform slotTransform, int index, bool isStop)
     {
         alltweens[index].Pause();
+        slotTransform.localPosition = new Vector2(slotTransform.localPosition.x, 0);
         int tweenpos = (reqpos * (IconSizeFactor + spacefactor)) - (IconSizeFactor + (2 * spacefactor));
         alltweens[index] = slotTransform.DOLocalMoveY(-tweenpos + 100 + (spacefactor > 0 ? spacefactor / 4 : 0), 0.5f).SetEase(Ease.OutElastic);
         if (!isStop)
