@@ -113,6 +113,7 @@ public class SlotBehaviour : MonoBehaviour
     private List<Tweener> alltweens = new List<Tweener>();
 
     private Tweener WinTween = null;
+    private Tween BalanceTween;
 
     [SerializeField]
     private List<ImageAnimation> TempList;  //stores the sprites whose animation is running at present 
@@ -511,7 +512,7 @@ public class SlotBehaviour : MonoBehaviour
         double initAmount = balance;
         balance = balance - (bet);
 
-        DOTween.To(() => initAmount, (val) => initAmount = val, balance, 0.8f).OnUpdate(() =>
+        BalanceTween = DOTween.To(() => initAmount, (val) => initAmount = val, balance, 0.8f).OnUpdate(() =>
         {
             if (Balance_text) Balance_text.text = initAmount.ToString("f2");
         });
@@ -599,6 +600,8 @@ public class SlotBehaviour : MonoBehaviour
 
         yield return alltweens[^1].WaitForCompletion();
         KillAllTweens();
+        BalanceTween?.Kill();
+        Balance_text.text = currentBalance.ToString("F3");
         if (SocketManager.playerdata.currentWining > 0)
         {
             SpinDelay = 1.2f;
