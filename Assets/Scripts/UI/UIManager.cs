@@ -280,11 +280,11 @@ public class UIManager : MonoBehaviour
         {
             if (jackpot)
             {
-                if (jackpot_Text) jackpot_Text.text = initAmount.ToString();
+                if (jackpot_Text) jackpot_Text.text = initAmount.ToString("F3");
             }
             else
             {
-                if (Win_Text) Win_Text.text = initAmount.ToString();
+                if (Win_Text) Win_Text.text = initAmount.ToString("F3");
 
             }
         });
